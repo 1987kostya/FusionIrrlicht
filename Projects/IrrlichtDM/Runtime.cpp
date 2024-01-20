@@ -58,9 +58,17 @@ ushort WINAPI DLLExport GetRunObjectDataSize(fprh rhPtr, LPEDATA edPtr)
 // 
 short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPtr)
 {
+	auto defaults = edPtr->defaults;
 	auto node = getMainEngine(rdPtr)->device->getSceneManager()->addCubeSceneNode(1);
-	rdPtr->fusionNode = new EmptyFusionNode();
+	rdPtr->fusionNode = new DummyFusionNode();
+	// TODO this segment here needs refactoring
 	rdPtr->fusionNode->node = node;
+	rdPtr->fusionNode->owningObject = &rdPtr->rHo;
+	rdPtr->rHo.hoFree0 = (UINT)rdPtr;
+
+	node->setPosition(vector3df(defaults.posX, defaults.posY, defaults.posZ));
+	node->setRotation(vector3df(defaults.rotX, defaults.rotY, defaults.rotZ));
+	node->setScale(vector3df(defaults.sclX, defaults.sclY, defaults.sclZ));
 	/*
 	   This routine runs when your object is created, as you might have guessed.
 	   It is here that you must transfer any data you need in rdPtr from edPtr,

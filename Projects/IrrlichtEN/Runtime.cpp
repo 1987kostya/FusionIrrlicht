@@ -95,7 +95,9 @@ void placeIrrlicht(LPRDATA rdPtr)
 	irr::scene::ISceneManager* smgr = device->getSceneManager();
 	video::IVideoDriver* driver = device->getVideoDriver();
 
-	if (driverType == video::EDT_OPENGL)
+
+	//TODO this causes a memory leak :)
+	if (0)//driverType == video::EDT_OPENGL)
 	{
 		HDC HDc = GetDC(hIrrlichtWindow);
 		PIXELFORMATDESCRIPTOR pfd = { 0 };
@@ -114,14 +116,15 @@ void placeIrrlicht(LPRDATA rdPtr)
 	cam->setTarget(core::vector3df(0, 0, 0));
 	cam->setPosition(core::vector3df(3, 3, 3));
 
-
+	
 	// show and execute dialog
 
-	ShowWindow(hWnd, SW_SHOW);
-	UpdateWindow(hWnd);
+	//ShowWindow(hWnd, SW_SHOW);
+	//UpdateWindow(hWnd);
 
-	// do message queue
+	// do message queue*/
 
+	
 	/*
 	Now the only thing missing is the drawing loop using
 	IrrlichtDevice::run(). We do this as usual. But instead of this, there
@@ -138,16 +141,13 @@ void placeIrrlicht(LPRDATA rdPtr)
 	
 
 }
-engineRData* mainEngineRuntime=0;
 short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPtr)
 {
-	mainEngineRuntime = rdPtr;
 	// XXX SOMEBODY PLEASE DO SOMETHING ABOUT IT AAAAAAAAAAAAAAAAAARGH
-	rdPtr->rHo.hoAdRunHeader->rhFree6 = (long)mainEngineRuntime;
+	rdPtr->rHo.hoAdRunHeader->rhFree6 = (long)rdPtr;
 	memcpy(&rdPtr->common, &edPtr->common, sizeof(engineCommon));
-	
 	placeIrrlicht(rdPtr);
-	
+
 
 	return 0;
 }
@@ -160,7 +160,14 @@ short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPt
 // 
 short WINAPI DLLExport DestroyRunObject(LPRDATA rdPtr, long fast)
 {
+	rdPtr->device->closeDevice();
 	rdPtr->device->drop();
+
+	//auto vData = rdPtr->device->getVideoDriver()->getExposedVideoData().OpenGLWin32;
+	//ReleaseDC(hIrrlichtWindow, (HDC)vData.HDc);
+	//wglDeleteContext((HGLRC)vData.HRc);
+
+	DestroyWindow(hIrrlichtWindow);
 /*
    When your object is destroyed (either with a Destroy action or at the end of
    the frame) this routine is called. You must free any resources you have allocated!
@@ -196,7 +203,7 @@ short WINAPI DLLExport DisplayRunObject(LPRDATA rdPtr)
 	rect->right = rdPtr->rHo.hoX + rdPtr->common.swidth;
 	rect->bottom = rdPtr->rHo.hoY + rdPtr->common.sheight;
 	auto device = rdPtr->device;
-	device->run();
+	if (!device->run())return 0;
 	device->getVideoDriver()->beginScene(true, true, SColor(255, 255, 0, 255), videodata);
 	device->getSceneManager()->drawAll();
 	device->getVideoDriver()->endScene();

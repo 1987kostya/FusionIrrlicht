@@ -19,7 +19,15 @@
 // Property identifiers
 enum {
 	PROPID_SETTINGS = PROPID_EXTITEM_CUSTOM_FIRST,
-
+	PROPID_POSITION_X,
+	PROPID_POSITION_Y,
+	PROPID_POSITION_Z,
+	PROPID_ROTATION_X,
+	PROPID_ROTATION_Y,
+	PROPID_ROTATION_Z,
+	PROPID_SCALE_X,
+	PROPID_SCALE_Y,
+	PROPID_SCALE_Z,
 	// Example
 	// -------
 	//	PROPID_TEXTTITLE,	
@@ -46,6 +54,17 @@ PropData Properties[] = {
 
 	// Example
 	// -------
+	PropData_EditFloat(PROPID_POSITION_X,M_POSITION_X,M_POSITION_X),
+	PropData_EditFloat(PROPID_POSITION_Y,M_POSITION_Y,M_POSITION_Y),
+	PropData_EditFloat(PROPID_POSITION_Z,M_POSITION_Z,M_POSITION_Z),
+
+	PropData_EditFloat(PROPID_ROTATION_X,M_ROTATION_X,M_ROTATION_X),
+	PropData_EditFloat(PROPID_ROTATION_Y,M_ROTATION_Y,M_ROTATION_Y),
+	PropData_EditFloat(PROPID_ROTATION_Z,M_ROTATION_Z,M_ROTATION_Z),
+
+	PropData_EditFloat(PROPID_SCALE_X,M_SCALE_X,M_SCALE_X),
+	PropData_EditFloat(PROPID_SCALE_Y,M_SCALE_Y,M_SCALE_Y),
+	PropData_EditFloat(PROPID_SCALE_Z,M_SCALE_Z,M_SCALE_Z),
 	//	PropData_Group		(PROPID_TEXTTITLE,	IDS_PROP_TEXTTITLE,		IDS_PROP_TEXTTITLE),
 	//	PropData_EditString	(PROPID_TEXT,		IDS_PROP_TEXT,			IDS_PROP_TEXT_INFO),
 	//	PropData_CheckBox	(PROPID_CHECK,		IDS_PROP_CHECK,			IDS_PROP_CHECK_INFO),
@@ -327,6 +346,10 @@ int WINAPI DLLExport CreateObject(mv _far* mV, fpLevObj loPtr, LPEDATA edPtr)
 	// Check compatibility
 	if (IS_COMPATIBLE(mV))
 	{
+		memset(&edPtr->defaults,0,sizeof(irrDefaultValues));
+		edPtr->defaults.sclX = 1;
+		edPtr->defaults.sclY = 1;
+		edPtr->defaults.sclZ = 1;
 		// Set default object settings
 //		edPtr->swidth = 32;
 //		edPtr->sheight = 32;
@@ -380,8 +403,8 @@ BOOL WINAPI EditObject(mv _far* mV, fpObjInfo oiPtr, fpLevObj loPtr, LPEDATA edP
 BOOL WINAPI SetEditSize(LPMV mv, LPEDATA edPtr, int cx, int cy)
 {
 #ifndef RUN_ONLY
-	edPtr->swidth = cx;
-	edPtr->sheight = cy;
+	//edPtr->swidth = cx;
+	//edPtr->sheight = cy;
 #endif // !defined(RUN_ONLY)
 	return TRUE;	// OK
 }
@@ -657,22 +680,29 @@ void WINAPI DLLExport ReleasePropCreateParam(LPMV mV, LPEDATA edPtr, UINT nPropI
 LPVOID WINAPI DLLExport GetPropValue(LPMV mV, LPEDATA edPtr, UINT nPropID)
 {
 #ifndef RUN_ONLY
-	// Example
-	// -------
-//	switch (nPropID) {
-//
-//	// Returns a color.
-//	case PROPID_COLOR:
-//		return new CPropDWordValue(edPtr->dwColor);
-//
-//	// Returns a string
-//	case PROPID_TEXT:
-//		return new CPropDataValue(&edPtr->szText[0]);
-//
-//	// Returns the value of the combo box
-//	case PROPID_COMBO:
-//		return new CPropDWordValue(edPtr->nComboIndex);
-//	}
+	switch (nPropID)
+	{
+	case PROPID_POSITION_X:
+		return new CPropFloatValue(edPtr->defaults.posX);
+	case PROPID_POSITION_Y:
+		return new CPropFloatValue(edPtr->defaults.posY);
+	case PROPID_POSITION_Z:
+		return new CPropFloatValue(edPtr->defaults.posZ);
+	case PROPID_ROTATION_X:
+		return new CPropFloatValue(edPtr->defaults.rotX);
+	case PROPID_ROTATION_Y:
+		return new CPropFloatValue(edPtr->defaults.rotY);
+	case PROPID_ROTATION_Z:
+		return new CPropFloatValue(edPtr->defaults.rotZ);
+	case PROPID_SCALE_X:
+		return new CPropFloatValue(edPtr->defaults.sclX);
+	case PROPID_SCALE_Y:
+		return new CPropFloatValue(edPtr->defaults.sclY);
+	case PROPID_SCALE_Z:
+		return new CPropFloatValue(edPtr->defaults.sclZ);
+	default:
+		break;
+	}
 #endif // !defined(RUN_ONLY)
 	return NULL;
 }
@@ -708,7 +738,39 @@ void WINAPI DLLExport SetPropValue(LPMV mV, LPEDATA edPtr, UINT nPropID, LPVOID 
 #ifndef RUN_ONLY
 	// Gets the pointer to the CPropValue structure
 	CPropValue* pValue = (CPropValue*)lParam;
+	switch (nPropID)
+	{
+	case PROPID_POSITION_X:
+		edPtr->defaults.posX = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_POSITION_Y:
+		edPtr->defaults.posY = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_POSITION_Z:
+		edPtr->defaults.posZ = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_ROTATION_X:
+		edPtr->defaults.rotX = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_ROTATION_Y:
+		edPtr->defaults.rotY = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_ROTATION_Z:
+		edPtr->defaults.rotZ = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_SCALE_X:
+		edPtr->defaults.sclX = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_SCALE_Y:
+		edPtr->defaults.sclY = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_SCALE_Z:
+		edPtr->defaults.sclZ = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
 
+	default:
+		break;
+	}
 	// Example
 	// -------
 //	switch (nPropID) {

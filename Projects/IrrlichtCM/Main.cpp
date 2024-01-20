@@ -88,7 +88,6 @@ long WINAPI DLLExport Condition(LPRDATA rdPtr, long param1, long param2)
 // 
 short WINAPI DLLExport Action(LPRDATA rdPtr, long param1, long param2)
 {
-	rdPtr->fusionNode->SetXPosition(15);
 	// Actions work just like Conditions
 
 	// Use directly param1 and/or param2 if this action has 1 or 2 parameters

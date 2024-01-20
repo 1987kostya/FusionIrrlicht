@@ -64,7 +64,6 @@ typedef struct tagRDATA
 {
 	// Main header - required
 	headerObject	rHo;					// Header
-	CameraFusionNode* fusionNode;
 	// Optional headers - depend on the OEFLAGS value, see documentation and examples for more info
 //	rCom			rc;				// Common structure for movements & animations
 //	rMvt			rm;				// Movements
