@@ -1,0 +1,106 @@
+
+EXPORTS
+	GetInfos							@2
+	LoadObject		= ?LoadObject@@YGHPAVmv@@PBDPAUtagEDATA_V1@@H@Z					@6
+	UnloadObject	= ?UnloadObject@@YGXPAVmv@@PAUtagEDATA_V1@@H@Z					@7
+	PutObject	= ?PutObject@@YGXPAVmv@@PAVLO@@PAUtagEDATA_V1@@G@Z						@8
+	RemoveObject =						?RemoveObject@@YGXPAVmv@@PAVLO@@PAUtagEDATA_V1@@G@Z		@9
+;	MakeIconEx							@11
+
+	CreateObject			= ?CreateObject@@YGHPAVmv@@PAVLO@@PAUtagEDATA_V1@@@Z			@14
+	GetHelpFileName						@16
+	EditObject	= ?EditObject@@YGHPAVmv@@PAVOI@@PAVLO@@PAUtagEDATA_V1@@@Z						@18
+	GetObjectRect	= ?GetObjectRect@@YGXPAVmv@@PAUtagRECT@@PAVLO@@PAUtagEDATA_V1@@@Z					@19
+;	EditorDisplay						@20
+	IsTransparent						@21
+	PrepareToWriteObject	= ?PrepareToWriteObject@@YGXPAVmv@@PAUtagEDATA_V1@@PAVOI@@@Z			@22
+	UpdateFileNames		= ?UpdateFileNames@@YGXPAVmv@@PADPAUtagEDATA_V1@@P6GX11@Z@Z				@23
+;	EnumElts							@24
+	Initialize							@25
+	Free								@26
+;	ExportTexts							@27
+;	ImportTexts							@28
+;	GetSubType							@29
+	UsesFile							@30
+	CreateFromFile	= ?CreateFromFile@@YGXPAVmv@@PADPAUtagEDATA_V1@@@Z					@31
+	DuplicateObject		= ?DuplicateObject@@YGXPAVmv@@PAVOI@@PAUtagEDATA_V1@@@Z				@32
+	GetObjInfos			= ?GetObjInfos@@YGXPAVmv@@PAUtagEDATA_V1@@PAD2222@Z				@36
+
+	GetTextCaps		= ?GetTextCaps@@YGKPAVmv@@PAUtagEDATA_V1@@@Z					@37
+	GetTextAlignment	= ?GetTextAlignment@@YGKPAVmv@@PAUtagEDATA_V1@@@Z				@38
+	SetTextAlignment	= ?SetTextAlignment@@YGXPAVmv@@PAUtagEDATA_V1@@K@Z				@39
+	GetTextFont			= ?GetTextFont@@YGHPAVmv@@PAUtagEDATA_V1@@PAUtagLOGFONTA@@PADI@Z				@40
+	SetTextFont			= ?SetTextFont@@YGHPAVmv@@PAUtagEDATA_V1@@PAUtagLOGFONTA@@PBD@Z				@41
+	GetTextClr		= ?GetTextClr@@YGKPAVmv@@PAUtagEDATA_V1@@@Z					@42
+	SetTextClr		= ?SetTextClr@@YGXPAVmv@@PAUtagEDATA_V1@@K@Z					@43
+
+	GetDependencies						@44
+	GetFilters	= ?GetFilters@@YGHPAVmv@@PAUtagEDATA_V1@@KPAX@Z						@45
+
+;	conditionsTable						@47
+;	actionsTable						@48
+;	expressionsTable					@49
+
+	CreateRunObject		= ?CreateRunObject@@YGFPAUtagRDATA@@PAUtagEDATA_V1@@PAUtagCOB@@@Z				@50
+	DestroyRunObject	= ?DestroyRunObject@@YGFPAUtagRDATA@@J@Z				@51
+	HandleRunObject		= ?HandleRunObject@@YGFPAUtagRDATA@@@Z				@52
+	DisplayRunObject	= ?DisplayRunObject@@YGFPAUtagRDATA@@@Z				@53
+	PauseRunObject		= ?PauseRunObject@@YGFPAUtagRDATA@@@Z				@57
+	ContinueRunObject	= ?ContinueRunObject@@YGFPAUtagRDATA@@@Z				@58
+	GetRunObjectInfos					@59
+
+	GetConditionMenu		= ?GetConditionMenu@@YGPAUHMENU__@@PAVmv@@PAVOI@@PAUtagEDATA_V1@@@Z			@60
+	GetActionMenu		= ?GetActionMenu@@YGPAUHMENU__@@PAVmv@@PAVOI@@PAUtagEDATA_V1@@@Z				@61
+	GetExpressionMenu		= ?GetExpressionMenu@@YGPAUHMENU__@@PAVmv@@PAVOI@@PAUtagEDATA_V1@@@Z			@62
+	GetConditionCodeFromMenu			@63
+	GetActionCodeFromMenu				@64
+	GetExpressionCodeFromMenu			@65
+	GetConditionString					@66
+	GetActionString     				@67
+	GetExpressionString					@68
+	InitParameter						@69
+	EditParameter						@70
+	GetParameterString					@71
+	GetConditionTitle					@72
+	GetActionTitle     					@73
+	GetExpressionTitle     				@74
+	GetConditionInfos					@75
+	GetActionInfos     					@76
+	GetExpressionInfos     				@77
+	UpdateEditStructure					@78
+	GetRunObjectDataSize	= ?GetRunObjectDataSize@@YGGPAURunHeader@@PAUtagEDATA_V1@@@Z			@80
+;	SaveBackground						@81
+;	RestoreBackground					@82
+;	KillBackground						@83
+; 	WindowProc							@84
+	StartApp							@85
+	EndApp								@86
+	StartFrame							@87
+	EndFrame							@88
+ 	GetExpressionParam					@89
+
+;	GetRunObjectSurface					@90
+;	GetRunObjectCollisionMask			@91
+
+;	GetRunObjectFont					@92
+;	SetRunObjectFont					@93
+;	GetRunObjectTextColor				@94
+;	SetRunObjectTextColor				@95
+
+; 	SetEditSize							@99
+	GetProperties	= ?GetProperties@@YGHPAVmv@@PAUtagEDATA_V1@@H@Z					@100
+	ReleaseProperties = ?ReleaseProperties@@YGXPAVmv@@PAUtagEDATA_V1@@H@Z					@101
+	GetPropValue	= ?GetPropValue@@YGPAXPAVmv@@PAUtagEDATA_V1@@I@Z					@102
+	SetPropValue		= ?SetPropValue@@YGXPAVmv@@PAUtagEDATA_V1@@IPAX@Z				@103
+	IsPropEnabled		= ?IsPropEnabled@@YGHPAVmv@@PAUtagEDATA_V1@@I@Z				@104
+	GetPropCheck	= ?GetPropCheck@@YGHPAVmv@@PAUtagEDATA_V1@@I@Z					@105
+	SetPropCheck			= ?SetPropCheck@@YGXPAVmv@@PAUtagEDATA_V1@@IH@Z			@106
+	GetPropCreateParam	= ?GetPropCreateParam@@YGJPAVmv@@PAUtagEDATA_V1@@I@Z				@107
+	ReleasePropCreateParam	= ?ReleasePropCreateParam@@YGXPAVmv@@PAUtagEDATA_V1@@IJ@Z			@108
+	EditProp	= ?EditProp@@YGHPAVmv@@PAUtagEDATA_V1@@I@Z						@109
+	GetDebugTree	= ?GetDebugTree@@YGPAGPAUtagRDATA@@@Z					@110
+	GetDebugItem	= ?GetDebugItem@@YGXPADPAUtagRDATA@@H@Z					@111
+	EditDebugItem	= ?EditDebugItem@@YGXPAUtagRDATA@@H@Z					@112
+
+	SaveRunObject	= ?SaveRunObject@@YGHPAUtagRDATA@@PAX@Z					@113
+	LoadRunObject		= ?LoadRunObject@@YGHPAUtagRDATA@@PAX@Z				@114
