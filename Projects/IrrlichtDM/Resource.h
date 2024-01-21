@@ -56,8 +56,8 @@
 #define MN_EXPRESSIONS                  20002
 #define DB_SETUP                        20003
 #define ID_HELP                         20004
-#define IDMN_ACTION                     25000
-#define ID__REMOVEFROMIRRLICHT          25001
+#define ID_ADDTOIRRLICHT                     25000
+#define ID_REMOVEFROMIRRLICHT          25001
 #define ID_NODEPROPERTIES_SETPARENTNODE 25002
 #define ID_NODEPROPERTIES_ATTACHTOBONENODE 25003
 

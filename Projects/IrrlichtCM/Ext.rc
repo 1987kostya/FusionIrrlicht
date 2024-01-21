@@ -122,10 +122,41 @@ MN_ACTIONS$(EDITOR) MENU
 MN_ACTIONS MENU
 #endif
 BEGIN
-    POPUP ""
-    BEGIN
-        MENUITEM "Action example",              IDMN_ACTION
-    END
+POPUP ""
+BEGIN
+MENUITEM "Add to Irrlicht", ID_ADDTOIRRLICHT
+MENUITEM "Remove from Irrlicht", ID_REMOVEFROMIRRLICHT
+POPUP "Node Properties"
+BEGIN
+MENUITEM "Set Parent Node", ID_NODEPROPERTIES_SETPARENTNODE
+MENUITEM "Attach To Bone Node", ID_NODEPROPERTIES_ATTACHTOBONENODE
+POPUP "Position"
+BEGIN
+MENUITEM "Set X Position", ID_POSITION_SETXPOSITION
+MENUITEM "Set Y Position", ID_POSITION_SETYPOSITION
+MENUITEM "Set Z Position", ID_POSITION_SETZPOSITION
+MENUITEM "Set Position", ID_POSITION_SETPOSITION
+END
+POPUP "Rotation"
+BEGIN
+MENUITEM "Set X Rotation", ID_ROTATION_SETXROTATION
+MENUITEM "Set Y Rotation", ID_ROTATION_SETYROTATION
+MENUITEM "Set Z Rotation", ID_ROTATION_SETZROTATION
+MENUITEM "Set Rotation", ID_ROTATION_SETROTATION
+END
+POPUP "Scale"
+BEGIN
+MENUITEM "Set X Scale", ID_SCALE_SETXSCALE
+MENUITEM "Set Y Scale", ID_SCALE_SETYSCALE
+MENUITEM "Set Z Scale", ID_SCALE_SETZSCALE
+MENUITEM "Set Scale", ID_SCALE_SETSCALE
+END
+POPUP "Visibility"
+BEGIN
+MENUITEM "Set Visibility", ID_VISIBILITY_SETVISIBILITY
+END
+END
+END
 END
 #endif
 
@@ -136,12 +167,55 @@ MN_EXPRESSIONS$(EDITOR) MENU
 MN_EXPRESSIONS MENU
 #endif
 BEGIN
-    POPUP ""
-    BEGIN
-        MENUITEM "Function example (three parameters)", IDMN_EXPRESSION
-        MENUITEM "Return String example (one parameter)", IDMN_EXPRESSION2
-        MENUITEM "Return Float example (one parameter)", IDMN_EXPRESSION3
-    END
+POPUP ""
+BEGIN
+POPUP "Node Properties"
+BEGIN
+MENUITEM "Get Parent Node", ID__GETPARENTNODE
+POPUP "World Transforms"
+BEGIN
+POPUP "Position"
+BEGIN
+MENUITEM "Get X Position", ID_WORLD_POSITION_GETX
+MENUITEM "Get Y Position", ID_WORLD_POSITION_GETY
+MENUITEM "Get Z Position", ID_WORLD_POSITION_GETZ
+END
+POPUP "Rotation"
+BEGIN
+MENUITEM "Get X Rotation", ID_WORLD_ROTATION_GETX
+MENUITEM "Get Y Rotation", ID_WORLD_ROTATION_GETY
+MENUITEM "Get Z Rotation", ID_WORLD_ROTATION_GETZ
+END
+POPUP "Scale"
+BEGIN
+MENUITEM "Get X Scale", ID_WORLD_SCALE_GETX
+MENUITEM "Get Y Scale", ID_WORLD_SCALE_GETY
+MENUITEM "Get Z Scale", ID_WORLD_SCALE_GETZ
+END
+END
+POPUP "Local Transforms"
+BEGIN
+POPUP "Position"
+BEGIN
+MENUITEM "Get X Position", ID_LOCAL_POSITION_GETX
+MENUITEM "Get Y Position", ID_LOCAL_POSITION_GETY
+MENUITEM "Get Z Position", ID_LOCAL_POSITION_GETZ
+END
+POPUP "Rotation"
+BEGIN
+MENUITEM "Get X Rotation", ID_LOCAL_ROTATION_GETX
+MENUITEM "Get Y Rotation", ID_LOCAL_ROTATION_GETY
+MENUITEM "Get Z Rotation", ID_LOCAL_ROTATION_GETZ
+END
+POPUP "Scale"
+BEGIN
+MENUITEM "Get X Scale", ID_LOCAL_SCALE_GETX
+MENUITEM "Get Y Scale", ID_LOCAL_SCALE_GETY
+MENUITEM "Get Z Scale", ID_LOCAL_SCALE_GETZ
+END
+END
+END
+END
 END
 #endif
 
@@ -206,32 +280,85 @@ END
 
 STRINGTABLE
 BEGIN
-    KPX_MARK                "MF2"
-    KPX_NAME                "Irrlicht - Camera"
+KPX_MARK                "MF2"
+KPX_NAME                "Irrlicht - Camera"
 END
 
 STRINGTABLE
 BEGIN
-    M_ACTION                "00Action example"
+M_AddToIrrlicht         "Add To Irrlicht"
+M_RemoveFromIrrlicht    "Remove From Irrlicht"
+M_SetParentNode         "Set Parent Node to %0"
+M_AttachToBoneNode      "Attach To Bone Node"
+M_SetXPosition          "Set X Position to %0"
+M_SetYPosition          "Set Y Position to %0"
+M_SetZPosition          "Set Z Position to %0"
+M_SetPosition           "Set Position to %0,%1,%2"
 END
 
 STRINGTABLE
 BEGIN
-    M_CONDITION             "Condition example: %0 + %1 = %2"
+M_SetXRotation          "Set X Rotation to %0"
+M_SetYRotation          "Set Y Rotation to %0"
+M_SetZRotation          "Set Z Rotation to %0"
+M_SetRotation           "Set Rotation to %0, %1, %2"
+M_SetXScale             "Set X Scale to %0"
+M_SetYScale             "Set Y Scale to %1"
+M_SetZScale             "Set Z Scale to %2"
+M_SetScale              "Set Scale to %0, %1, %2"
+M_SetVisibiliy          "Set Visibiliy"
 END
 
 STRINGTABLE
 BEGIN
-    M_CND_P1                "Enter First Value"
-    M_CND_P2                "Enter Second Value"
-    M_CND_P3                "Enter Value to Match"
+M_CONDITION             "Condition example: %0 + %1 = %2"
 END
 
 STRINGTABLE
 BEGIN
-    M_EXPRESSION            "Function("
-    M_EXPRESSION2           "Reverse$("
-    M_EXPRESSION3           "DivFloatByTwo("
+M_CND_P1                "Enter First Value"
+M_CND_P2                "Enter Second Value"
+M_CND_P3                "Enter Value to Match"
+END
+
+STRINGTABLE
+BEGIN
+M_POSITION_X            "Position X"
+M_POSITION_Y            "Position Y"
+M_POSITION_Z            "Position Z"
+M_ROTATION_X            "Rotation X"
+M_ROTATION_Y            "Rotation Y"
+M_ROTATION_Z            "Rotation Z"
+M_SCALE_X               "Scale X"
+M_SCALE_Y               "Scale Y"
+M_SCALE_Z               "Scale Z"
+END
+
+STRINGTABLE
+BEGIN
+M_GetParentNode         "GetParentNode("
+M_GetLocalPosX          "GetLocalPosX("
+M_GetLocalPosY          "GetLocalPosY("
+M_GetLocalPosZ          "GetLocalPosZ("
+M_GetLocalRotX          "GetLocalRotX("
+M_GetLocalRotY          "GetLocalRotY("
+M_GetLocalRotZ          "GetLocalRotZ("
+M_GetLocalSclX          "GetLocalSclX("
+END
+
+STRINGTABLE
+BEGIN
+M_GetLocalSclY          "GetLocalSclY("
+M_GetLocalSclZ          "GetLocalSclZ("
+M_GetWorldPosX          "GetWorldPosX("
+M_GetWorldPosY          "GetWorldPosY("
+M_GetWorldPosZ          "GetWorldPosZ("
+M_GetWorldRotX          "GetWorldRotX("
+M_GetWorldRotY          "GetWorldRotY("
+M_GetWorldRotZ          "GetWorldRotZ("
+M_GetWorldSclX          "GetWorldSclX("
+M_GetWorldSclY          "GetWorldSclY("
+M_GetWorldSclZ          "GetWorldSclZ("
 END
 
 STRINGTABLE

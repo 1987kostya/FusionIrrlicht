@@ -84,7 +84,7 @@ public:
 
 
 
-#define getMainEngine(x) ((engineRData*)x->rHo.hoAdRunHeader->rhFree6)
+#define getMainEngine(x) ((engineRData*)(x->rHo.hoAdRunHeader->rhFree6))
 #define getFixedValue(rHo) ((rHo.hoCreationId << 16)| (rHo.hoHFII))
 
 // XXX CALLING THIS BEFORE ALL OBJECTS ARE CREATED WILL RESULT IN A CRASH
@@ -101,5 +101,6 @@ static LPHO GetObjectByFixedValue(LPRH hdr,int fixed)
 		}
 		ptr++;
 	}
+	return 0;
 }
 

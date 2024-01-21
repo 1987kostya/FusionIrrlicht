@@ -28,8 +28,8 @@ IDMN_CONDITION, M_CONDITION, CND_CONDITION, EVFLAGS_ALWAYS, 3, PARAM_EXPRESSION,
 // Definitions of parameters for each action
 short actionsInfos[] =
 {
-	IDMN_ACTION, M_AddToIrrlicht,	ACT_AddToIrrlicht,0,1, PARAM_EXPRESSION,0,
-	ID__REMOVEFROMIRRLICHT, M_RemoveFromIrrlicht,	ACT_RemoveFromIrrlicht,0,0,
+	ID_ADDTOIRRLICHT, M_AddToIrrlicht,	ACT_AddToIrrlicht,0,1, PARAM_EXPRESSION,0,
+	ID_REMOVEFROMIRRLICHT, M_RemoveFromIrrlicht,	ACT_RemoveFromIrrlicht,0,0,
 
 	ID_NODEPROPERTIES_SETPARENTNODE, M_SetParentNode,	ACT_SetParentNode,0,1,PARAM_EXPRESSION,0,
 	ID_NODEPROPERTIES_ATTACHTOBONENODE, M_AttachToBoneNode,	ACT_AttachToBoneNode,0,1,PARAM_EXPRESSION,0, //TODO NO CLUE HOW THIS WORKS, FIGURE OUT
@@ -197,9 +197,18 @@ short WINAPI DLLExport A_SetZScale(LPRDATA rdPtr, long param1, long param2)
 short WINAPI DLLExport A_SetParentNode(LPRDATA rdPtr, long param1, long param2)
 {
 	long p1 = CNC_GetParameter(rdPtr);
-	LPHO obj = GetObjectByFixedValue(rdPtr->rHo.hoAdRunHeader, p1);
-	LPRDATA rData= (LPRDATA)obj->hoFree0;
-	rdPtr->fusionNode->SetParentNode(rData->fusionNode); //It might have a different type, but the node position should always be the same, so let's hope it doesn't break :)
+	LPHO obj;
+	if (!p1)
+		obj = NULL;
+	else
+		obj = GetObjectByFixedValue(rdPtr->rHo.hoAdRunHeader, p1);
+	if (obj)
+	{
+		LPRDATA rData = (LPRDATA)obj->hoFree0;
+		rdPtr->fusionNode->SetParentNode(rData->fusionNode); //It might have a different type, but the node position should always be the same, so let's hope it doesn't break :)
+	}
+	else
+		rdPtr->fusionNode->SetParentNode(0);
 	return 0;
 }
 // ============================================================================
@@ -213,7 +222,7 @@ short WINAPI DLLExport A_SetParentNode(LPRDATA rdPtr, long param1, long param2)
 // -----------------
 // Add three values
 // 
-long WINAPI DLLExport E_GetParentNode(LPRDATA rdPtr, long param1) { return getFixedValue((*rdPtr->fusionNode->parentNodeObject)); }
+long WINAPI DLLExport E_GetParentNode(LPRDATA rdPtr, long param1) { if (rdPtr->fusionNode->parentNode == NULL) return NULL; return getFixedValue((*rdPtr->fusionNode->parentNodeObject)); }
 
 long WINAPI DLLExport E_GetLocalXPos(LPRDATA rdPtr, long param1) { rdPtr->rHo.hoFlags |= HOF_FLOAT; float f = rdPtr->fusionNode->GetXPosition();return *((int*)&f);}
 long WINAPI DLLExport E_GetLocalYPos(LPRDATA rdPtr, long param1) { rdPtr->rHo.hoFlags |= HOF_FLOAT; float f = rdPtr->fusionNode->GetYPosition();return *((int*)&f);}

@@ -59,9 +59,19 @@ ushort WINAPI DLLExport GetRunObjectDataSize(fprh rhPtr, LPEDATA edPtr)
 // 
 short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPtr)
 {
-	//auto node = getMainEngine(rdPtr)->device->getSceneManager()->addCubeSceneNode(1);
-	//rdPtr->fusionNode = new CameraFusionNode();
-	//rdPtr->fusionNode->node = node;
+	auto commonDefaults = edPtr->commonDefaults;
+	auto node = getMainEngine(rdPtr)->device->getSceneManager()->addCameraSceneNode();
+	rdPtr->fusionNode = new CameraFusionNode();
+	// TODO this segment here needs refactoring
+	rdPtr->fusionNode->node = node;
+	rdPtr->fusionNode->owningObject = &rdPtr->rHo;
+	rdPtr->rHo.hoFree0 = (UINT)rdPtr;
+	//node->bindTargetAndRotation(true);
+	node->setScale(vector3df(commonDefaults.sclX, commonDefaults.sclY, commonDefaults.sclZ));
+	node->setRotation(vector3df(commonDefaults.rotX, commonDefaults.rotY, commonDefaults.rotZ));
+	node->setPosition(vector3df(commonDefaults.posX, commonDefaults.posY, commonDefaults.posZ));
+
+	node->render();
 /*
    This routine runs when your object is created, as you might have guessed.
    It is here that you must transfer any data you need in rdPtr from edPtr,
@@ -81,7 +91,7 @@ short WINAPI DLLExport CreateRunObject(LPRDATA rdPtr, LPEDATA edPtr, fpcob cobPt
 // 
 short WINAPI DLLExport DestroyRunObject(LPRDATA rdPtr, long fast)
 {
-	//delete rdPtr->fusionNode;
+	delete rdPtr->fusionNode;
 /*
    When your object is destroyed (either with a Destroy action or at the end of
    the frame) this routine is called. You must free any resources you have allocated!

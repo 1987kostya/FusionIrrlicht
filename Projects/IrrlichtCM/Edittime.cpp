@@ -19,40 +19,29 @@
 // Property identifiers
 enum {
 	PROPID_SETTINGS = PROPID_EXTITEM_CUSTOM_FIRST,
-
-// Example
-// -------
-//	PROPID_TEXTTITLE,	
-//	PROPID_TEXT,	
-//	PROPID_CHECK,
-//	PROPID_COMBO,
-//	PROPID_COLOR,
+	PROPID_POSITION_X,
+	PROPID_POSITION_Y,
+	PROPID_POSITION_Z,
+	PROPID_ROTATION_X,
+	PROPID_ROTATION_Y,
+	PROPID_ROTATION_Z,
+	PROPID_SCALE_X,
+	PROPID_SCALE_Y,
+	PROPID_SCALE_Z,
 };
 
-// Example of content of the PROPID_COMBO combo box
-//LPCSTR ComboList[] = {
-//	0,	// reserved
-//	MAKEINTRESOURCE(IDS_FIRSTOPTION),	
-//	MAKEINTRESOURCE(IDS_SECONDOPTION),	
-//	MAKEINTRESOURCE(IDS_THIRDOPTION),	
-//	NULL
-//};
-
-// Property definitions
-//
-// Type, ID, Text, Text of Info box [, Options, Init Param]
-//
 PropData Properties[] = {
+	PropData_EditFloat(PROPID_POSITION_X,M_POSITION_X,M_POSITION_X),
+	PropData_EditFloat(PROPID_POSITION_Y,M_POSITION_Y,M_POSITION_Y),
+	PropData_EditFloat(PROPID_POSITION_Z,M_POSITION_Z,M_POSITION_Z),
 
-// Example
-// -------
-//	PropData_Group		(PROPID_TEXTTITLE,	IDS_PROP_TEXTTITLE,		IDS_PROP_TEXTTITLE),
-//	PropData_EditString	(PROPID_TEXT,		IDS_PROP_TEXT,			IDS_PROP_TEXT_INFO),
-//	PropData_CheckBox	(PROPID_CHECK,		IDS_PROP_CHECK,			IDS_PROP_CHECK_INFO),
-//	PropData_ComboBox	(PROPID_COMBO,		IDS_PROP_COMBO,			IDS_PROP_COMBO,	ComboList),
-//	PropData_Color		(PROPID_COLOR,		IDS_PROP_COLOR,			IDS_PROP_COLOR_INFO),
+	PropData_EditFloat(PROPID_ROTATION_X,M_ROTATION_X,M_ROTATION_X),
+	PropData_EditFloat(PROPID_ROTATION_Y,M_ROTATION_Y,M_ROTATION_Y),
+	PropData_EditFloat(PROPID_ROTATION_Z,M_ROTATION_Z,M_ROTATION_Z),
 
-	// End of table (required)
+	PropData_EditFloat(PROPID_SCALE_X,M_SCALE_X,M_SCALE_X),
+	PropData_EditFloat(PROPID_SCALE_Y,M_SCALE_Y,M_SCALE_Y),
+	PropData_EditFloat(PROPID_SCALE_Z,M_SCALE_Z,M_SCALE_Z),
 	PropData_End()
 };
 
@@ -327,6 +316,10 @@ int WINAPI DLLExport CreateObject(mv _far *mV, fpLevObj loPtr, LPEDATA edPtr)
 	// Check compatibility
 	if ( IS_COMPATIBLE(mV) )
 	{
+		memset(&edPtr->commonDefaults, 0, sizeof(irrDefaultValues));
+		edPtr->commonDefaults.sclX = 1;
+		edPtr->commonDefaults.sclY = 1;
+		edPtr->commonDefaults.sclZ = 1;
 		// Set default object settings
 //		edPtr->swidth = 32;
 //		edPtr->sheight = 32;
@@ -380,8 +373,8 @@ BOOL WINAPI EditObject (mv _far *mV, fpObjInfo oiPtr, fpLevObj loPtr, LPEDATA ed
 BOOL WINAPI SetEditSize(LPMV mv, LPEDATA edPtr, int cx, int cy)
 {
 #ifndef RUN_ONLY
-	edPtr->swidth = cx;
-	edPtr->sheight = cy;
+	//edPtr->swidth = cx;
+	//edPtr->sheight = cy;
 #endif // !defined(RUN_ONLY)
 	return TRUE;	// OK
 }
@@ -657,22 +650,29 @@ void WINAPI DLLExport ReleasePropCreateParam(LPMV mV, LPEDATA edPtr, UINT nPropI
 LPVOID WINAPI DLLExport GetPropValue(LPMV mV, LPEDATA edPtr, UINT nPropID)
 {
 #ifndef RUN_ONLY
-	// Example
-	// -------
-//	switch (nPropID) {
-//
-//	// Returns a color.
-//	case PROPID_COLOR:
-//		return new CPropDWordValue(edPtr->dwColor);
-//
-//	// Returns a string
-//	case PROPID_TEXT:
-//		return new CPropDataValue(&edPtr->szText[0]);
-//
-//	// Returns the value of the combo box
-//	case PROPID_COMBO:
-//		return new CPropDWordValue(edPtr->nComboIndex);
-//	}
+	switch (nPropID)
+	{
+	case PROPID_POSITION_X:
+		return new CPropFloatValue(edPtr->commonDefaults.posX);
+	case PROPID_POSITION_Y:
+		return new CPropFloatValue(edPtr->commonDefaults.posY);
+	case PROPID_POSITION_Z:
+		return new CPropFloatValue(edPtr->commonDefaults.posZ);
+	case PROPID_ROTATION_X:
+		return new CPropFloatValue(edPtr->commonDefaults.rotX);
+	case PROPID_ROTATION_Y:
+		return new CPropFloatValue(edPtr->commonDefaults.rotY);
+	case PROPID_ROTATION_Z:
+		return new CPropFloatValue(edPtr->commonDefaults.rotZ);
+	case PROPID_SCALE_X:
+		return new CPropFloatValue(edPtr->commonDefaults.sclX);
+	case PROPID_SCALE_Y:
+		return new CPropFloatValue(edPtr->commonDefaults.sclY);
+	case PROPID_SCALE_Z:
+		return new CPropFloatValue(edPtr->commonDefaults.sclZ);
+	default:
+		break;
+	}
 #endif // !defined(RUN_ONLY)
 	return NULL;
 }
@@ -706,58 +706,39 @@ BOOL WINAPI DLLExport GetPropCheck(LPMV mV, LPEDATA edPtr, UINT nPropID)
 void WINAPI DLLExport SetPropValue(LPMV mV, LPEDATA edPtr, UINT nPropID, LPVOID lParam)
 {
 #ifndef RUN_ONLY
-	// Gets the pointer to the CPropValue structure
 	CPropValue* pValue = (CPropValue*)lParam;
-
-	// Example
-	// -------
-//	switch (nPropID) {
-//
-//	case PROPID_COMBO:
-//		// Simply grab the value
-//		edPtr->nComboIndex = ((CPropDWordValue*)pValue)->m_dwValue;
-//		break;
-
-//	case PROPID_COLOR:
-//		// Here too, gets the value
-//		edPtr->dwColor = ((CPropDWordValue*)pValue)->m_dwValue;
-//		break;
-
-//	case PROPID_TEXT:
-//		{
-//			// Gets the string
-//			LPSTR pStr = (LPSTR)((CPropDataValue*)pValue)->m_pData;
-//
-//			// You can simply poke the string if your EDITDATA structure has a fixed size,
-//			// or have an adaptive size of structure like below
-//
-//			// If the length is different
-//			if (strlen(pStr)!=strlen(edPtr->text))
-//			{
-//				// Asks MMF to reallocate the structure with the new size
-//				LPEDATA pNewPtr = (LPEDATA)mvReAllocEditData(mV, edPtr, sizeof(EDITDATA)+strlen(pStr));
-//				
-//				// If reallocation worked
-//				if (pNewPtr!=NULL)
-//				{
-//					// Copy the string
-//					edPtr=pNewPtr;
-//					strcpy(edPtr->text, pStr);
-//				}
-//			}
-//			else
-//			{	
-//				// Same size : simply copy
-//				strcpy(edPtr->text, pStr);
-//			}
-//		}
-//		break;
-//	}
-
-	// You may want to have your object redrawn in the frame editor after the modifications,
-	// in this case, just call this function
-	// mvInvalidateObject(mV, edPtr);
-
+	switch (nPropID)
+	{
+	case PROPID_POSITION_X:
+		edPtr->commonDefaults.posX = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_POSITION_Y:
+		edPtr->commonDefaults.posY = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_POSITION_Z:
+		edPtr->commonDefaults.posZ = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_ROTATION_X:
+		edPtr->commonDefaults.rotX = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_ROTATION_Y:
+		edPtr->commonDefaults.rotY = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_ROTATION_Z:
+		edPtr->commonDefaults.rotZ = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_SCALE_X:
+		edPtr->commonDefaults.sclX = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_SCALE_Y:
+		edPtr->commonDefaults.sclY = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	case PROPID_SCALE_Z:
+		edPtr->commonDefaults.sclZ = ((CPropFloatValue*)pValue)->m_fValue;
+		break;
+	default:
+		break;
+	}
 #endif // !defined(RUN_ONLY)
 }
 

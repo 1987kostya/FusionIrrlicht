@@ -124,8 +124,8 @@ MN_ACTIONS MENU
 BEGIN
     POPUP ""
     BEGIN
-        MENUITEM "Add to Irrlicht",             IDMN_ACTION
-        MENUITEM "Remove from Irrlicht",        ID__REMOVEFROMIRRLICHT
+        MENUITEM "Add to Irrlicht", ID_ADDTOIRRLICHT
+        MENUITEM "Remove from Irrlicht",        ID_REMOVEFROMIRRLICHT
         POPUP "Node Properties"
         BEGIN
             MENUITEM "Set Parent Node",             ID_NODEPROPERTIES_SETPARENTNODE

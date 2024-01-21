@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="Common.h" />
     <ClInclude Include="Include\EnginePublic.h" />
+    <ClInclude Include="Include\Nodes.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>

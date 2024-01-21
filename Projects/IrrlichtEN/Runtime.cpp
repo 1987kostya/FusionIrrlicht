@@ -112,10 +112,7 @@ void placeIrrlicht(LPRDATA rdPtr)
 		videodata.OpenGLWin32.HRc = wglCreateContext(HDc);
 		wglShareLists((HGLRC)driver->getExposedVideoData().OpenGLWin32.HRc, (HGLRC)videodata.OpenGLWin32.HRc);
 	}
-	scene::ICameraSceneNode* cam = smgr->addCameraSceneNode();
-	cam->setTarget(core::vector3df(0, 0, 0));
-	cam->setPosition(core::vector3df(3, 3, 3));
-
+	
 	
 	// show and execute dialog
 

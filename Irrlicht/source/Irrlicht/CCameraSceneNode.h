@@ -66,6 +66,7 @@ namespace scene
 		then calling this will also change the camera's target to match the rotation.
 		\param rotation New rotation of the node in degrees. */
 		virtual void setRotation(const core::vector3df& rotation);
+		virtual void setPosition(const core::vector3df& position);
 
 		//! Gets the current look at target of the camera
 		/** \return The current look at target of the camera */

@@ -1811,7 +1811,7 @@ namespace core
 #endif
 		return *this;
 	}
-
+	
 
 	// Builds a right-handed look-at matrix.
 	template <class T>

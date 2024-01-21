@@ -147,7 +147,13 @@ void CCameraSceneNode::setRotation(const core::vector3df& rotation)
 
 	ISceneNode::setRotation(rotation);
 }
+void CCameraSceneNode::setPosition(const core::vector3df& position)
+{
+	if (TargetAndRotationAreBound)
+		Target = position + getAbsoluteTransformation().getRotationDegrees().rotationToDirection();
 
+	ISceneNode::setPosition(position);
+}
 
 //! Gets the current look at target of the camera
 //! \return Returns the current look at target of the camera
@@ -259,8 +265,10 @@ void CCameraSceneNode::render()
 	{
 		up.X += 0.5f;
 	}
+	Target = pos + getAbsoluteTransformation().getRotationDegrees().rotationToDirection();
+	ViewArea.getTransform(video::ETS_VIEW).buildCameraLookAtMatrixLH(pos, Target, up); // because fuck shit bullshit
 
-	ViewArea.getTransform(video::ETS_VIEW).buildCameraLookAtMatrixLH(pos, Target, up);
+
 	ViewArea.getTransform(video::ETS_VIEW) *= Affector;
 	recalculateViewArea();
 
