@@ -181,9 +181,7 @@ short WINAPI DLLExport DestroyRunObject(LPRDATA rdPtr, long fast)
 // 
 short WINAPI DLLExport HandleRunObject(LPRDATA rdPtr)
 {
-	
-	
-	return REFLAG_DISPLAY;
+		return REFLAG_DISPLAY;
 }
 
 // ----------------

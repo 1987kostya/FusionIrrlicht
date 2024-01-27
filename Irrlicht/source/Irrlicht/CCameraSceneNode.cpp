@@ -266,6 +266,7 @@ void CCameraSceneNode::render()
 		up.X += 0.5f;
 	}
 	Target = pos + getAbsoluteTransformation().getRotationDegrees().rotationToDirection();
+	//up = pos + (getAbsoluteTransformation().getRotationDegrees()+core::vector3df(0,90,0)).rotationToDirection();
 	ViewArea.getTransform(video::ETS_VIEW).buildCameraLookAtMatrixLH(pos, Target, up); // because fuck shit bullshit
 
 
