@@ -110,7 +110,14 @@ MN_CONDITIONS MENU
 BEGIN
     POPUP ""
     BEGIN
-        MENUITEM "Condition example (three parameters)", IDMN_CONDITION
+        POPUP "Node Properties"
+        BEGIN
+            POPUP "Visibility"
+            BEGIN
+                MENUITEM "Is visible",                  ID_VISIBILITY_ISVISIBLE
+                MENUITEM "Is truly visible",            ID_VISIBILITY_ISTRULYVISIBLE
+            END
+        END
     END
 END
 #endif
@@ -125,7 +132,7 @@ BEGIN
     POPUP ""
     BEGIN
         MENUITEM "Add to Irrlicht",             ID_ADDTOIRRLICHT
-        MENUITEM "Remove from Irrlicht",        ID_ROTATION_SETROTATION
+        MENUITEM "Remove from Irrlicht",        ID_REMOVEFROMIRRLICHT
         POPUP "Node Properties"
         BEGIN
             MENUITEM "Set Parent Node",             ID_NODEPROPERTIES_SETPARENTNODE
@@ -156,6 +163,7 @@ BEGIN
                 MENUITEM "Set Visibility",              ID_VISIBILITY_SETVISIBILITY
             END
         END
+        MENUITEM "Load Material",               ID__LOADMATERIAL
     END
 END
 #endif
@@ -215,6 +223,7 @@ BEGIN
                 END
             END
         END
+        MENUITEM "Get Loaded Material",         ID_GETLOADEDMAT
     END
 END
 #endif
@@ -275,28 +284,13 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO
-BEGIN
-    "DB_SETUP$(EDITOR)", DIALOG
-    BEGIN
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // String Table
 //
 
 STRINGTABLE
 BEGIN
     KPX_MARK                "MF2"
-    KPX_NAME                "Irrlicht - Camera"
+    KPX_NAME                "Irrlicht - Billboard"
 END
 
 STRINGTABLE
@@ -322,6 +316,7 @@ BEGIN
     M_SetZScale             "Set Z Scale to %2"
     M_SetScale              "Set Scale to %0, %1, %2"
     M_SetVisibiliy          "Set Visibiliy"
+    M_LoadMaterial          "Load Material %0"
 END
 
 STRINGTABLE
@@ -374,11 +369,12 @@ BEGIN
     M_GetWorldSclX          "GetWorldSclX("
     M_GetWorldSclY          "GetWorldSclY("
     M_GetWorldSclZ          "GetWorldSclZ("
+    M_GetLoadedMat          "GetLoadedMaterial("
 END
 
 STRINGTABLE
 BEGIN
-    IDST_OBJNAME            "Irrlicht - Camera"
+    IDST_OBJNAME            "Irrlicht - Billboard"
     IDST_AUTHOR             "1987kostya"
     IDST_COPYRIGHT          "Copyright © 2024 1987kostya"
     IDST_COMMENT            "Test1"

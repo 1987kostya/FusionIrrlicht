@@ -110,7 +110,20 @@ MN_CONDITIONS MENU
 BEGIN
     POPUP ""
     BEGIN
-        MENUITEM "Condition example (three parameters)", IDMN_CONDITION
+        MENUITEM "Is Added to Irrlicht",        ID__ISADDEDTOIRRLICHT
+        POPUP "Node Properties"
+        BEGIN
+            POPUP "Position"
+            BEGIN
+                MENUITEM "Compare to X Position",       ID_POSITION_COMPARETOXPOSITION
+                MENUITEM "Compare to Y Position",       ID_POSITION_COMPARETOYPOSITION
+                MENUITEM "Compare to Z Position",       ID_POSITION_COMPARETOZPOSITION
+            END
+            POPUP "Visibility"
+            BEGIN
+                MENUITEM "Is Visible",                  ID_VISIBILITY_ISVISIBLE
+            END
+        END
     END
 END
 #endif
@@ -124,32 +137,29 @@ MN_ACTIONS MENU
 BEGIN
     POPUP ""
     BEGIN
-        MENUITEM "Add to Irrlicht",             ID_ADDTOIRRLICHT
-        MENUITEM "Remove from Irrlicht",        ID_ROTATION_SETROTATION
+        MENUITEM "Add to Irrlicht",             ID__ADDTOIRRLICHT
+        MENUITEM "Remove from Irrlicht",        ID__REMOVEFROMIRRLICHT
         POPUP "Node Properties"
         BEGIN
-            MENUITEM "Set Parent Node",             ID_NODEPROPERTIES_SETPARENTNODE
+            MENUITEM "Set Parent Node",             ID_NODEPROPERTIES_SETPARENTNODE40005
             MENUITEM "Attach To Bone Node",         ID_NODEPROPERTIES_ATTACHTOBONENODE
             POPUP "Position"
             BEGIN
                 MENUITEM "Set X Position",              ID_POSITION_SETXPOSITION
                 MENUITEM "Set Y Position",              ID_POSITION_SETYPOSITION
                 MENUITEM "Set Z Position",              ID_POSITION_SETZPOSITION
-                MENUITEM "Set Position",                ID_POSITION_SETPOSITION
             END
             POPUP "Rotation"
             BEGIN
                 MENUITEM "Set X Rotation",              ID_ROTATION_SETXROTATION
                 MENUITEM "Set Y Rotation",              ID_ROTATION_SETYROTATION
                 MENUITEM "Set Z Rotation",              ID_ROTATION_SETZROTATION
-                MENUITEM "Set Rotation",                ID_ROTATION_SETROTATION
             END
             POPUP "Scale"
             BEGIN
                 MENUITEM "Set X Scale",                 ID_SCALE_SETXSCALE
                 MENUITEM "Set Y Scale",                 ID_SCALE_SETYSCALE
                 MENUITEM "Set Z Scale",                 ID_SCALE_SETZSCALE
-                MENUITEM "Set Scale",                   ID_SCALE_SETSCALE
             END
             POPUP "Visibility"
             BEGIN
@@ -171,47 +181,47 @@ BEGIN
     BEGIN
         POPUP "Node Properties"
         BEGIN
-            MENUITEM "Get Parent Node",             ID__GETPARENTNODE
+            MENUITEM "Get Parent Node",             ID_NODEPROPERTIES_GETPARENTNODE
             POPUP "World Transforms"
             BEGIN
                 POPUP "Position"
                 BEGIN
-                    MENUITEM "Get X Position",              ID_WORLD_POSITION_GETX
-                    MENUITEM "Get Y Position",              ID_WORLD_POSITION_GETY
-                    MENUITEM "Get Z Position",              ID_WORLD_POSITION_GETZ
+                    MENUITEM "X",                           ID_POSITION_X40054
+                    MENUITEM "Y",                           ID_POSITION_Y40055
+                    MENUITEM "Z",                           ID_POSITION_Z40056
                 END
                 POPUP "Rotation"
                 BEGIN
-                    MENUITEM "Get X Rotation",              ID_WORLD_ROTATION_GETX
-                    MENUITEM "Get Y Rotation",              ID_WORLD_ROTATION_GETY
-                    MENUITEM "Get Z Rotation",              ID_WORLD_ROTATION_GETZ
+                    MENUITEM "X",                           ID_ROTATION_X40057
+                    MENUITEM "Y",                           ID_ROTATION_Y40058
+                    MENUITEM "Z",                           ID_ROTATION_Z40059
                 END
                 POPUP "Scale"
                 BEGIN
-                    MENUITEM "Get X Scale",                 ID_WORLD_SCALE_GETX
-                    MENUITEM "Get Y Scale",                 ID_WORLD_SCALE_GETY
-                    MENUITEM "Get Z Scale",                 ID_WORLD_SCALE_GETZ
+                    MENUITEM "X",                           ID_SCALE_X40060
+                    MENUITEM "Y",                           ID_SCALE_Y40061
+                    MENUITEM "Z",                           ID_SCALE_Z40062
                 END
             END
             POPUP "Local Transforms"
             BEGIN
                 POPUP "Position"
                 BEGIN
-                    MENUITEM "Get X Position",              ID_LOCAL_POSITION_GETX
-                    MENUITEM "Get Y Position",              ID_LOCAL_POSITION_GETY
-                    MENUITEM "Get Z Position",              ID_LOCAL_POSITION_GETZ
+                    MENUITEM "X",                           ID_POSITION_X
+                    MENUITEM "Y",                           ID_POSITION_Y
+                    MENUITEM "Z",                           ID_POSITION_Z
                 END
                 POPUP "Rotation"
                 BEGIN
-                    MENUITEM "Get X Rotation",              ID_LOCAL_ROTATION_GETX
-                    MENUITEM "Get Y Rotation",              ID_LOCAL_ROTATION_GETY
-                    MENUITEM "Get Z Rotation",              ID_LOCAL_ROTATION_GETZ
+                    MENUITEM "X",                           ID_ROTATION_X
+                    MENUITEM "Y",                           ID_ROTATION_Y
+                    MENUITEM "Z",                           ID_ROTATION_Z
                 END
                 POPUP "Scale"
                 BEGIN
-                    MENUITEM "Get X Scale",                 ID_LOCAL_SCALE_GETX
-                    MENUITEM "Get Y Scale",                 ID_LOCAL_SCALE_GETY
-                    MENUITEM "Get Z Scale",                 ID_LOCAL_SCALE_GETZ
+                    MENUITEM "X",                           ID_SCALE_X
+                    MENUITEM "Y",                           ID_SCALE_Y
+                    MENUITEM "Z",                           ID_SCALE_Z
                 END
             END
         END
@@ -275,53 +285,18 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO
-BEGIN
-    "DB_SETUP$(EDITOR)", DIALOG
-    BEGIN
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // String Table
 //
 
 STRINGTABLE
 BEGIN
     KPX_MARK                "MF2"
-    KPX_NAME                "Irrlicht - Camera"
+    KPX_NAME                "Irrlicht - Dummy"
 END
 
 STRINGTABLE
 BEGIN
-    M_AddToIrrlicht         "Add To Irrlicht"
-    M_RemoveFromIrrlicht    "Remove From Irrlicht"
-    M_SetParentNode         "Set Parent Node to %0"
-    M_AttachToBoneNode      "Attach To Bone Node"
-    M_SetXPosition          "Set X Position to %0"
-    M_SetYPosition          "Set Y Position to %0"
-    M_SetZPosition          "Set Z Position to %0"
-    M_SetPosition           "Set Position to %0,%1,%2"
-END
-
-STRINGTABLE
-BEGIN
-    M_SetXRotation          "Set X Rotation to %0"
-    M_SetYRotation          "Set Y Rotation to %0"
-    M_SetZRotation          "Set Z Rotation to %0"
-    M_SetRotation           "Set Rotation to %0, %1, %2"
-    M_SetXScale             "Set X Scale to %0"
-    M_SetYScale             "Set Y Scale to %1"
-    M_SetZScale             "Set Z Scale to %2"
-    M_SetScale              "Set Scale to %0, %1, %2"
-    M_SetVisibiliy          "Set Visibiliy"
+    M_ACTION                "00Action example"
 END
 
 STRINGTABLE
@@ -338,47 +313,14 @@ END
 
 STRINGTABLE
 BEGIN
-    M_POSITION_X            "Position X"
-    M_POSITION_Y            "Position Y"
-    M_POSITION_Z            "Position Z"
-    M_ROTATION_X            "Rotation X"
-    M_ROTATION_Y            "Rotation Y"
-    M_ROTATION_Z            "Rotation Z"
-    M_SCALE_X               "Scale X"
-    M_SCALE_Y               "Scale Y"
-    M_SCALE_Z               "Scale Z"
+    M_EXPRESSION            "Function("
+    M_EXPRESSION2           "Reverse$("
+    M_EXPRESSION3           "DivFloatByTwo("
 END
 
 STRINGTABLE
 BEGIN
-    M_GetParentNode         "GetParentNode("
-    M_GetLocalPosX          "GetLocalPosX("
-    M_GetLocalPosY          "GetLocalPosY("
-    M_GetLocalPosZ          "GetLocalPosZ("
-    M_GetLocalRotX          "GetLocalRotX("
-    M_GetLocalRotY          "GetLocalRotY("
-    M_GetLocalRotZ          "GetLocalRotZ("
-    M_GetLocalSclX          "GetLocalSclX("
-END
-
-STRINGTABLE
-BEGIN
-    M_GetLocalSclY          "GetLocalSclY("
-    M_GetLocalSclZ          "GetLocalSclZ("
-    M_GetWorldPosX          "GetWorldPosX("
-    M_GetWorldPosY          "GetWorldPosY("
-    M_GetWorldPosZ          "GetWorldPosZ("
-    M_GetWorldRotX          "GetWorldRotX("
-    M_GetWorldRotY          "GetWorldRotY("
-    M_GetWorldRotZ          "GetWorldRotZ("
-    M_GetWorldSclX          "GetWorldSclX("
-    M_GetWorldSclY          "GetWorldSclY("
-    M_GetWorldSclZ          "GetWorldSclZ("
-END
-
-STRINGTABLE
-BEGIN
-    IDST_OBJNAME            "Irrlicht - Camera"
+    IDST_OBJNAME            "Irrlicht - Dummy"
     IDST_AUTHOR             "1987kostya"
     IDST_COPYRIGHT          "Copyright © 2024 1987kostya"
     IDST_COMMENT            "Test1"
